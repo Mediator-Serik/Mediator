@@ -237,7 +237,9 @@ function sendToTelegram(event) {
     body: JSON.stringify({chat_id: chat_id, text: text})
   })
   .then(() => {
-    alert("Заявка отправлена!");
+alert("Заявка отправлена! Сейчас откроется Telegram для связи.");
+
+window.open("https://t.me/serik_mediator_bot", "_blank");
   })
   .catch(() => {
     alert("Ошибка отправки");
