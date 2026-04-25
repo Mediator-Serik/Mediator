@@ -218,27 +218,30 @@
 function sendToTelegram(event) {
   event.preventDefault();
 
-  const name = document.querySelector('input[placeholder="Ваше имя"]').value;
-  const phone = document.querySelector('input[placeholder="Телефон"]').value;
+  const name = document.querySelector('input[type="text"]').value;
+  const phone = document.querySelector('input[type="tel"]').value;
   const message = document.querySelector('textarea').value;
 
   const token = "8761715645:AAEBlwbuXMNr3o7vc7W9_g8EBXVKVHVTAWk";
   const chat_id = "5214401821";
 
-  const text = `Новая заявка с сайта
-
-Имя: ${name}
-Телефон: ${phone}
-Ситуация: ${message}`;
+  const text = `Новая заявка с сайта\n\nИмя: ${name}\nТелефон: ${phone}\nСитуация: ${message}`;
 
   fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({chat_id: chat_id, text: text})
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: chat_id,
+      text: text
+    })
   })
-  .then(() => {
-alert("Вы обратились к профессиональному медиатору для мирного урегулирования спора.\n\nЗаявка отправлена. Я свяжусь с вами для уточнения деталей и предложу оптимальный формат проведения медиации (онлайн или офлайн).\n\nВся предоставленная информация является конфиденциальной.");
-  .catch(() => {
+  .then(function() {
+    alert("Вы обратились к профессиональному медиатору для мирного урегулирования спора.\n\nЗаявка отправлена. Я свяжусь с вами для уточнения деталей и предложу оптимальный формат проведения медиации (онлайн или офлайн).\n\nВся предоставленная информация является конфиденциальной.");
+  })
+  .catch(function(error) {
+    console.log("Ошибка:", error);
     alert("Ошибка отправки");
   });
 }
